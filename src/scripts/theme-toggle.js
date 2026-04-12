@@ -1,4 +1,4 @@
-let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+let isDark;
 
 function applyTheme(isThemeDark) {
   isDark = isThemeDark;
@@ -21,8 +21,8 @@ function toggleTheme() {
 }
 
 function initThemeToggle() {
-  // !!! IMPORTANT !!! SET SELECTOR
-  const colorSchemeBtn = document.querySelector('');
+  // !!! IMPORTANT !!! SET SELECTOR .theme-toggle in HTML/CSS
+  const colorSchemeBtn = document.querySelector('.theme-toggle');
 
   if (colorSchemeBtn) {
     // Sync state with the attribute set by the critical script in Head
