@@ -1,5 +1,11 @@
+/* Update urls of fonts or remove below imports if not using external fonts */
 @font-face {
-  font-family: '';
+  font-family: 'main-font';
+  src: url();
+  font-display: swap;
+}
+@font-face {
+  font-family: 'headings-font';
   src: url();
   font-display: swap;
 }
@@ -29,22 +35,35 @@ svg {
   fill: currentColor;
 }
 /* ======================================= */
-/* ROOT & BODY ========================== */
+/* ROOT & BODY & HEADINGS FONTS ========= */
 /* ===================================== */
 :root {
   --space-base: 4px;
 
+  /* Remember to set below colors */
   --font: ;
   --bg: ;
   --bg-light: ;
+
+  /* Font Families */
+  --font-body:
+    'main-font', system-ui, -apple-system, Segoe UI, Oxygen, Ubuntu, sans-serif;
+  --font-heading:
+    'headings-font', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 body {
   -webkit-tap-highlight-color: transparent;
   text-wrap: pretty;
   line-height: 1.5;
-  font-family:
-    system-ui, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji';
+  font-family: var(--font-body);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
 /* ======================================= */
 /* DARK-MODE============================= */
