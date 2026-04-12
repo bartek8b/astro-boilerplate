@@ -1,16 +1,21 @@
 ---
 import 'modern-normalize/modern-normalize.css';
 import '../styles/global.css';
+import Head from './Head.astro';
 
-const { title } = Astro.props;
+const {
+  lang = 'pl',
+  // Set title & description
+  title,
+  description,
+  // Remeber to upload ogp-image.jpg into public/
+  ogImgUrl = '/ogp-image.jpg',
+} = Astro.props;
 ---
 
-<html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-  </head>
+<html lang={lang}>
+  <Head title={title} description={description} ogImgUrl={ogImgUrl} />
+
   <body>
     <header></header>
 
