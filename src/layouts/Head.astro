@@ -40,6 +40,8 @@ const { title, description, ogImgUrl } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={Astro.url} />
+  <!-- Remember to add favicon into public/ -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <meta property="og:url" content={Astro.url} />
   <meta property="og:title" content={title} />
