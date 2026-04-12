@@ -1,0 +1,23 @@
+---
+import 'modern-normalize/modern-normalize.css';
+import '../styles/global.css';
+
+const { title } = Astro.props;
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer></footer>
+  </body>
+</html>
