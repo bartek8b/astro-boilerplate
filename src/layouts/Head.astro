@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 const { title, description, ogImgUrl } = Astro.props;
 ---
 
@@ -6,19 +8,6 @@ const { title, description, ogImgUrl } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="generator" content={Astro.generator} />
-
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={Astro.url} />
-
-  <meta property="og:url" content={Astro.url} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(ogImgUrl, Astro.url)} />
-
-  <!-- Uncomment below links if using external fonts -->
-  <!-- <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/headings-font.woff2" as="font" type="font/woff2" crossorigin /> -->
 
   <!-- Delete below script if not using light/dark mode -->
   <script is:inline>
@@ -45,4 +34,19 @@ const { title, description, ogImgUrl } = Astro.props;
       }
     })();
   </script>
+
+  <ClientRouter />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={Astro.url} />
+
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(ogImgUrl, Astro.url)} />
+
+  <!-- Uncomment below links if using external fonts -->
+  <!-- <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/headings-font.woff2" as="font" type="font/woff2" crossorigin /> -->
 </head>

@@ -2,7 +2,10 @@ let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
 function applyTheme(isThemeDark) {
   isDark = isThemeDark;
-  document.documentElement.setAttribute('data-theme', isThemeDark ? 'dark' : 'light');
+  document.documentElement.setAttribute(
+    'data-theme',
+    isThemeDark ? 'dark' : 'light',
+  );
   // NOTE: do NOT mutate button.innerHTML here — icons should be embedded in HTML and toggled via CSS.
 }
 
@@ -29,7 +32,7 @@ function initThemeToggle() {
     colorSchemeBtn.setAttribute('aria-pressed', String(isDark));
     colorSchemeBtn.setAttribute(
       'aria-label',
-      isDark ? 'Switch to light theme' : 'Switch to dark theme'
+      isDark ? 'Switch to light theme' : 'Switch to dark theme',
     );
 
     colorSchemeBtn.addEventListener('click', () => {
@@ -38,7 +41,7 @@ function initThemeToggle() {
       colorSchemeBtn.setAttribute('aria-pressed', String(isDark));
       colorSchemeBtn.setAttribute(
         'aria-label',
-        isDark ? 'Switch to light theme' : 'Switch to dark theme'
+        isDark ? 'Switch to light theme' : 'Switch to dark theme',
       );
     });
   }
