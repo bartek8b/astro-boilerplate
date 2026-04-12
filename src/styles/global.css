@@ -1,0 +1,82 @@
+@font-face {
+  font-family: '';
+  src: url();
+  font-display: swap;
+}
+html {
+  scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--font);
+}
+a:visited {
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  color: var(--font);
+  background: transparent;
+  border: none;
+}
+svg {
+  color: var(--font);
+  fill: currentColor;
+}
+/* ======================================= */
+/* ROOT & BODY ========================== */
+/* ===================================== */
+:root {
+  --space-base: 4px;
+
+  --font: ;
+  --bg: ;
+  --bg-light: ;
+}
+body {
+  -webkit-tap-highlight-color: transparent;
+  text-wrap: pretty;
+  line-height: 1.5;
+  font-family:
+    system-ui, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+/* ======================================= */
+/* DARK-MODE============================= */
+/* ===================================== */
+[data-theme='dark'] {
+  --bg: ;
+  --bg-light: ;
+}
+/* ======================================= */
+/* HOVER ================================ */
+/* ===================================== */
+@media (hover: hover) {
+}
+/* ======================================= */
+/* RESPONSIVE-MEDIA-QUERIES ============= */
+/* ===================================== */
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 360px) {
+}
+
+@media (min-width: 1920px) {
+}
+/* ======================================= */
+/* REDUCED-MOTION ======================= */
+/* ===================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
