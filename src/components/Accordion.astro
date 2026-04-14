@@ -1,0 +1,262 @@
+---
+/**
+ * Automated via props, manually styled via CSS placeholders.
+ */
+
+interface Props {
+  items: {
+    id: string;
+    title: string;
+    para?: string;
+    table?: {
+      headers: string[];
+      rows: string[][];
+    };
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="accordion">
+  {
+    items.map((item) => (
+      <div class="accordion-item">
+        <button
+          id={`btn-${item.id}`}
+          class="accordion-header"
+          aria-expanded="false"
+          aria-controls={`para-${item.id}`}
+        >
+          {item.title}
+          <span class="icon-plus-minus" aria-hidden="true">
+            +
+          </span>
+        </button>
+
+        <div
+          id={`para-${item.id}`}
+          class="accordion-content"
+          role="region"
+          aria-labelledby={`btn-${item.id}`}
+        >
+          {item.para && <p>{item.para}</p>}
+
+          {item.table && (
+            <table>
+              <colgroup>
+                <col class="col-service" />
+                <col class="col-price" />
+              </colgroup>
+              <thead>
+                <tr>
+                  {item.table.headers.map((h, i) => (
+                    <th class={i === 1 ? 'price' : 'service'}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {item.table.rows.map((row) => (
+                  <tr>
+                    {row.map((cell, i) => (
+                      <td class={i === 1 ? 'price' : 'service'}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  /* --- CUSTOMIZE YOUR LAYOUT HERE --- */
+
+  .accordion {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-item > * {
+    padding-inline: 0; /* [PLACEHOLDER] */
+  }
+
+  /* Styling of expanded item */
+  .accordion-item.expanded .accordion-header {
+    background-color: 0; /* [PLACEHOLDER] */
+    color: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-item.expanded {
+    margin-bottom: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-header {
+    width: 100%;
+    background-color: transparent;
+    color: inherit;
+    border: 0; /* [PLACEHOLDER] */
+    border-radius: 0; /* [PLACEHOLDER] */
+    cursor: pointer;
+    text-align: start;
+    padding-block: 0; /* [PLACEHOLDER] */
+    padding-inline: 0; /* [PLACEHOLDER] */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .accordion-header:active,
+  .accordion-item.expanded .accordion-header:active {
+    background-color: 0; /* [PLACEHOLDER] */
+    color: 0; /* [PLACEHOLDER] */
+  }
+
+  .icon-plus-minus {
+    font-size: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-content > table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .accordion-content > table .col-price {
+    width: 25%;
+  }
+
+  .accordion-content > table .price {
+    text-align: center;
+  }
+
+  .accordion-content > table .service {
+    text-align: start;
+  }
+
+  .accordion-content > table th {
+    border-bottom: 0; /* [PLACEHOLDER] */
+    padding-block: 0; /* [PLACEHOLDER] */
+  }
+
+  .accordion-content > table td {
+    border-bottom: 0; /* [PLACEHOLDER] */
+    padding-block: 0; /* [PLACEHOLDER] */
+  }
+</style>
+
+<script>
+  function initAccordion() {
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach((button) => {
+      button.addEventListener('click', () => {
+        const accordionItem = button.parentElement as HTMLElement;
+        if (!accordionItem) return;
+
+        const content = accordionItem.querySelector(
+          '.accordion-content',
+        ) as HTMLElement;
+        if (!content) return;
+
+        // Logic: Close other elements (Single Open Mode)
+        document.querySelectorAll('.accordion-item').forEach((item) => {
+          const otherItem = item as HTMLElement;
+          if (
+            otherItem !== accordionItem &&
+            otherItem.classList.contains('expanded')
+          ) {
+            const otherContent = otherItem.querySelector(
+              '.accordion-content',
+            ) as HTMLElement;
+            const otherIcon = otherItem.querySelector('.icon-plus-minus');
+            const otherButton = otherItem.querySelector('.accordion-header');
+
+            if (otherContent) {
+              if (otherContent.style.maxHeight === 'none') {
+                otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+              }
+              setTimeout(() => {
+                otherContent.style.maxHeight = '0';
+              }, 10);
+            }
+
+            otherItem.classList.remove('expanded');
+            if (otherIcon) otherIcon.textContent = '+';
+            if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current element state
+        const isExpanded = accordionItem.classList.toggle('expanded');
+        button.setAttribute('aria-expanded', String(isExpanded));
+
+        if (isExpanded) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          const icon = accordionItem.querySelector('.icon-plus-minus');
+          if (icon) icon.textContent = '-';
+
+          content.addEventListener('transitionend', function handler() {
+            if (accordionItem.classList.contains('expanded')) {
+              content.style.maxHeight = 'none';
+            }
+            content.removeEventListener('transitionend', handler);
+          });
+        } else {
+          if (content.style.maxHeight === 'none') {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+          setTimeout(() => {
+            content.style.maxHeight = '0';
+          }, 10);
+          const icon = accordionItem.querySelector('.icon-plus-minus');
+          if (icon) icon.textContent = '+';
+        }
+      });
+    });
+  }
+
+  // Initial load & View Transitions support
+  initAccordion();
+  document.addEventListener('astro:after-swap', initAccordion);
+</script>
+
+
+<!-- Exapmle of use:
+
+---
+import Accordion from '../components/Accordion.astro';
+
+const myServices = [
+  {
+    id: 'service-1',
+    title: 'Webpages',
+    para: 'Description of the provided services',
+    table: {
+      headers: ['Service', 'Price'],
+      rows: [['Landing Page', '1500 PLN'], ['Multi site', '2500 PLN']]
+    }
+  }
+];
+---
+<Accordion items={myServices} /> -->
