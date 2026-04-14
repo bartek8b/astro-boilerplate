@@ -2,6 +2,7 @@
 import 'modern-normalize/modern-normalize.css';
 import '../styles/global.css';
 import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
 
 const {
   lang = 'pl',
@@ -17,7 +18,7 @@ const {
   <Head title={title} description={description} ogImgUrl={ogImgUrl} />
 
   <body transition:animate="fade">
-    <header></header>
+    <Header></Header>
 
     <main>
       <slot />

@@ -1,0 +1,33 @@
+---
+/**
+ * Header component with built-in scroll visibility support.
+ * The smooth transition is handled via CSS transform.
+ * Compatible with scripts/header-scroll.js
+ */
+---
+
+<header>
+  <slot />
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+
+    /* Smooth movement handled by CSS transition */
+    transition: transform 0.3s ease-in-out;
+
+    /* Optional: add a subtle border or shadow */
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* This class is toggled by scripts/header-scroll.js 
+    It hides the header by moving it out of the viewport.
+  */
+  :global(.header-hidden) {
+    transform: translateY(-100%);
+  }
+</style>
