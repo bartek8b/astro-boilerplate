@@ -1,12 +1,12 @@
 /* Update urls of fonts or remove below imports if not using external fonts */
 @font-face {
   font-family: 'main-font';
-  src: url();
+  src: url() format('woff2');
   font-display: swap;
 }
 @font-face {
   font-family: 'headings-font';
-  src: url();
+  src: url() format('woff2');
   font-display: swap;
 }
 html {
