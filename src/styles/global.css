@@ -69,6 +69,7 @@ h6 {
 /* DARK-MODE============================= */
 /* ===================================== */
 [data-theme='dark'] {
+  /* Remember to set below colors or remove block if not using dark/light mode */
   --bg: ;
   --bg-light: ;
 }
