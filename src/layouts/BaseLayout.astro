@@ -1,7 +1,7 @@
 ---
 import 'modern-normalize/modern-normalize.css';
 import '../styles/global.css';
-import Head from './Head.astro';
+import Head from '../components/Head.astro';
 
 const {
   lang = 'pl',
@@ -16,7 +16,7 @@ const {
 <html lang={lang}>
   <Head title={title} description={description} ogImgUrl={ogImgUrl} />
 
-  <body>
+  <body transition:animate="fade">
     <header></header>
 
     <main>
@@ -25,9 +25,14 @@ const {
 
     <footer></footer>
 
-    <!-- Delete below script if not using light/dark theme & set selector within script file -> const colorSchemeBtn = document.querySelector(''); -->
+    <!-- Delete below imports if not using specific mechanism -->
     <script>
+      // Requires a '.theme-toggle' trigger in your HTML
       import '../scripts/theme-toggle.js';
+
+      // Requires '.animate-once' or '.animate-constant' in HTML
+      // Requires '.show' state with transform rules in global.css
+      import '../scripts/intersection-observer.js';
     </script>
   </body>
 </html>
