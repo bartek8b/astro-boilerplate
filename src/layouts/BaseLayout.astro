@@ -17,14 +17,14 @@ const {
 <html lang={lang}>
   <Head title={title} description={description} ogImgUrl={ogImgUrl} />
 
-  <body transition:animate="fade">
-    <Header></Header>
+  <body>
+    <Header transition:persist transition:animate="none" />
 
-    <main>
+    <main transition:animate="fade">
       <slot />
     </main>
 
-    <footer></footer>
+    <footer transition:persist transition:animate="none"></footer>
 
     <!-- Delete below imports if not using specific mechanism -->
     <script>
