@@ -92,6 +92,17 @@ h6 {
 @media (min-width: 1920px) {
 }
 /* ======================================= */
+/* ANIMATIONS =========================== */
+/* ===================================== */
+.aniamte-once {
+  transform: translateY(30px);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+.aniamate-once.show {
+  transform: translateY(0);
+}
+/* ======================================= */
 /* REDUCED-MOTION ======================= */
 /* ===================================== */
 @media (prefers-reduced-motion: reduce) {
