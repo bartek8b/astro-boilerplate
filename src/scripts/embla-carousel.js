@@ -6,9 +6,11 @@ const viewportNode = wrapperNode.querySelector('.embla__viewport');
 const prevButtonNode = wrapperNode.querySelector('.embla__prev');
 const nextButtonNode = wrapperNode.querySelector('.embla__next');
 
-const emblaApi = EmblaCarousel(viewportNode, { loop: true, align: 'center' }, [
-  Autoplay(),
-]);
+const emblaApi = EmblaCarousel(
+  viewportNode,
+  { loop: true, align: 'center', watchDrag: true },
+  [Autoplay()],
+);
 
 prevButtonNode.addEventListener('click', () => emblaApi.goToPrev(), false);
 nextButtonNode.addEventListener('click', () => emblaApi.goToNext(), false);
