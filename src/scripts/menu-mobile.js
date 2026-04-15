@@ -108,7 +108,8 @@ function initMenu() {
 
   // Keep nav position synced during scroll (useful for sticky headers)
   window.addEventListener('scroll', () => {
-      if (!header || !openNav || !closeNav || !nav) return; {
+    if (!header || !openNav || !closeNav || !nav) return;
+    {
       const rect = header.getBoundingClientRect();
       nav.style.top = rect.bottom + 'px';
     }
