@@ -9,7 +9,7 @@ function initMenu() {
   const nav = document.querySelector('#main-nav');
   const header = document.querySelector('header');
 
-  if (!openNav || !closeNav || !nav) return;
+  if (!header || !openNav || !closeNav || !nav) return;
 
   /**
    * Syncs accessibility attributes for both toggle buttons and the nav element.
@@ -108,7 +108,7 @@ function initMenu() {
 
   // Keep nav position synced during scroll (useful for sticky headers)
   window.addEventListener('scroll', () => {
-    if (nav.classList.contains('show')) {
+      if (!header || !openNav || !closeNav || !nav) return; {
       const rect = header.getBoundingClientRect();
       nav.style.top = rect.bottom + 'px';
     }
