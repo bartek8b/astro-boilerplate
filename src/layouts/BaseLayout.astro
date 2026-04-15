@@ -18,16 +18,19 @@ const {
   <Head title={title} description={description} ogImgUrl={ogImgUrl} />
 
   <body>
-    <Header transition:animate="none" />
+    <Header transition:persist />
 
-    <main transition:animate="fade">
+    <main transition:name="main" transition:animate="fade">
       <slot />
     </main>
 
-    <footer transition:animate="none"></footer>
+    <footer transition:persist></footer>
 
     <!-- Delete below imports if not using specific mechanism -->
     <script>
+      // Updates current link / page indicator in nav
+      import '../scripts/nav-current.js';
+
       // Requires a '.theme-toggle' trigger in your HTML
       import '../scripts/theme-toggle.js';
 
