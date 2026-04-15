@@ -4,7 +4,10 @@ function updateNavCurrent() {
 
   links.forEach((link) => {
     const href = link.getAttribute('href');
-    if (href === current || (href !== '/' && current.startsWith(href))) {
+    if (
+      href === current ||
+      (href !== '/' && (current === href || current.startsWith(href + '/')))
+    ) {
       link.classList.add('current');
     } else {
       link.classList.remove('current');
