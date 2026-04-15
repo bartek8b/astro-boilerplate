@@ -1,11 +1,14 @@
 import EmblaCarousel from 'embla-carousel';
+nextButtonNode.addEventListener('click', () => emblaApi.goToNext(), false);
 
 const wrapperNode = document.querySelector('.embla');
 const viewportNode = wrapperNode.querySelector('.embla__viewport');
 const prevButtonNode = wrapperNode.querySelector('.embla__prev');
 const nextButtonNode = wrapperNode.querySelector('.embla__next');
 
-const emblaApi = EmblaCarousel(viewportNode, { loop: false });
+const emblaApi = EmblaCarousel(viewportNode, { loop: false }, [Autoplay()]);
 
 prevButtonNode.addEventListener('click', () => emblaApi.goToPrev(), false);
 nextButtonNode.addEventListener('click', () => emblaApi.goToNext(), false);
+
+emblaApi.plugins().autoplay?.play();
