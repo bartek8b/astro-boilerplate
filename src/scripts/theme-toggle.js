@@ -21,8 +21,8 @@ function toggleTheme() {
 }
 
 function initThemeToggle() {
-  // !!! IMPORTANT !!! SET SELECTOR .theme-toggle in HTML/CSS
-  const colorSchemeBtn = document.querySelector('.theme-toggle');
+  // !!! IMPORTANT !!! SET SELECTOR .theme-toggle-btn in HTML/CSS
+  const colorSchemeBtn = document.querySelector('.theme-toggle-btn');
 
   if (colorSchemeBtn) {
     // Sync state with the attribute set by the critical script in Head
