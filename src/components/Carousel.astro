@@ -114,11 +114,12 @@ const { images } = Astro.props;
 
   @media (max-width: 768px) {
     .embla__container {
-      margin-left: calc(var(--slide-spacing-mobile) * -1); /* Renders -20px */
+      margin-left: calc(var(--slide-spacing-mobile) * -1);
     }
 
     .embla__slide {
       flex: 0 0 var(--slide-size-mobile);
+      padding-left: var(--slide-spacing-mobile);
     }
   }
 </style>
