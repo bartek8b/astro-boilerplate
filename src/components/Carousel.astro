@@ -2,30 +2,65 @@
 /**
  * Embla carousel library installed from npm through ../scripts/embla-carousel.js
  */
+
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: {
+    src: ImageMetadata;
+    alt: string;
+  }[];
+}
+
+const { images } = Astro.props;
 ---
 
-<div class="embla">
+<div class="embla" aria-roledescription="carousel" aria-label="Gallery">
   <div class="embla__viewport">
     <div class="embla__container">
-      <div class="embla__slide">1</div>
-      <div class="embla__slide">2</div>
-      <div class="embla__slide">3</div>
-      <div class="embla__slide">4</div>
-      <div class="embla__slide">5</div>
-      <div class="embla__slide">6</div>
-      <div class="embla__slide">7</div>
-      <div class="embla__slide">8</div>
+      {
+        images.map((img, index) => (
+          <div
+            class="embla__slide"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} of ${images.length}`}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              class="embla__img"
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        ))
+      }
     </div>
   </div>
 
   <div class="embla__controls">
     <div class="embla__nav-btns-container">
-      <button class="embla__prev">&#706;</button>
-      <button class="embla__next">&#707;</button>
+      <button class="embla__prev" aria-label="Previous slide">&#706;</button>
+      <button class="embla__next" aria-label="Next slide">&#707;</button>
     </div>
-    <div class="embla__dots"></div>
+
+    <div
+      class="embla__dots"
+      role="tablist"
+      aria-label="Select slide to display"
+    >
+    </div>
     <template id="embla-dot-template">
-      <button class="embla__dot" aria-label="Go to slide"> </button>
+      <!-- aria-label has to match content within this line in embla-carousel.js: return html.replace('Go to slide', `Go to slide ${index + 1}`); -->
+      <button
+        class="embla__dot"
+        role="tab"
+        aria-selected="false"
+        aria-label="Go to slide"
+        tabindex="-1"
+      >
+      </button>
     </template>
   </div>
 </div>
@@ -33,9 +68,9 @@
 <style>
   .embla {
     --slide-size: 50%;
-    --slide-size-md-up: 100%; /* Mobile (max-width: 768px) */
+    --slide-size-mobile: 100%; /* Mobile (max-width: 768px) */
     --slide-spacing: 16px;
-    --slide-spacing-md-up: 8px; /* Mobile (max-width: 768px) */
+    --slide-spacing-mobile: 8px; /* Mobile (max-width: 768px) */
   }
   .embla__viewport {
     overflow: hidden;
@@ -79,11 +114,11 @@
 
   @media (max-width: 768px) {
     .embla__container {
-      margin-left: calc(var(--slide-spacing-md-up) * -1); /* Renders -20px */
+      margin-left: calc(var(--slide-spacing-mobile) * -1); /* Renders -20px */
     }
 
     .embla__slide {
-      flex: 0 0 var(--slide-size-md-up);
+      flex: 0 0 var(--slide-size-mobile);
     }
   }
 </style>
@@ -91,3 +126,19 @@
 <script>
   import '../scripts/embla-carousel.js';
 </script>
+
+<!-- Exapmle of use:
+
+---
+import Carousel from '../components/Carousel.astro';
+import image1 from '../assets/hero-1.jpg';
+import image2 from '../assets/hero-2.jpg';
+
+const gallery = [
+  { src: image1, alt: "Description of first image" },
+  { src: image2, alt: "Description of second image" },
+];
+---
+
+<Carousel images={gallery} />
+-->

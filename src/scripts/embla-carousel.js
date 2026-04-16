@@ -22,9 +22,11 @@ const initEmbla = () => {
   const nextButtonNode = wrapperNode.querySelector('.embla__next');
   const dotsNode = wrapperNode.querySelector('.embla__dots');
 
-  const emblaApi = EmblaCarousel(viewportNode, { loop: true, align: 'center' }, [
-    Autoplay(),
-  ]);
+  const emblaApi = EmblaCarousel(
+    viewportNode,
+    { loop: true, align: 'center' },
+    [Autoplay()],
+  );
 
   // Handle previous button click
   prevButtonNode.addEventListener(
@@ -33,7 +35,7 @@ const initEmbla = () => {
       emblaApi.plugins().autoplay?.stop();
       emblaApi.scrollPrev();
     },
-    { signal }
+    { signal },
   );
 
   // Handle next button click
@@ -43,7 +45,7 @@ const initEmbla = () => {
       emblaApi.plugins().autoplay?.stop();
       emblaApi.scrollNext();
     },
-    { signal }
+    { signal },
   );
 
   let dotNodes = [];
@@ -51,12 +53,16 @@ const initEmbla = () => {
   const createDotButtonHtml = (emblaApi, dotsNode) => {
     const dotTemplate = wrapperNode.querySelector('#embla-dot-template');
     const snapList = emblaApi.scrollSnapList();
-    
-    // Clear existing dots before generating new ones (important for reInit)
-    dotsNode.innerHTML = snapList.reduce(
-      (acc) => acc + dotTemplate.innerHTML,
-      '',
-    );
+
+    // Generate dots with unique aria-labels based on their index
+    dotsNode.innerHTML = snapList
+      .map((_, index) => {
+        let html = dotTemplate.innerHTML;
+        // Inject dynamic index into aria-label
+        return html.replace('Go to slide', `Go to slide ${index + 1}`);
+      })
+      .join('');
+
     return Array.from(dotsNode.querySelectorAll('.embla__dot'));
   };
 
@@ -68,17 +74,26 @@ const initEmbla = () => {
           emblaApi.plugins().autoplay?.stop();
           emblaApi.scrollTo(index);
         },
-        { signal }
+        { signal },
       );
     });
   };
 
   const toggleDotButtonsActive = (emblaApi, dotNodes) => {
     if (!dotNodes.length) return;
+
     const previous = emblaApi.previousScrollSnap();
     const selected = emblaApi.selectedScrollSnap();
+
+    // Reset old dot
     dotNodes[previous].classList.remove('embla__dot--selected');
+    dotNodes[previous].setAttribute('aria-selected', 'false');
+    dotNodes[previous].setAttribute('tabindex', '-1');
+
+    // Update new dot
     dotNodes[selected].classList.add('embla__dot--selected');
+    dotNodes[selected].setAttribute('aria-selected', 'true');
+    dotNodes[selected].setAttribute('tabindex', '0');
   };
 
   const createAndSetupDotButtons = (emblaApi, dotsNode) => {
@@ -92,9 +107,11 @@ const initEmbla = () => {
 
   // Re-run dots setup when carousel re-initializes (e.g., window resize)
   emblaApi.on('reInit', () => createAndSetupDotButtons(emblaApi, dotsNode));
-  
+
   // Toggle active class on dot change
-  emblaApi.on('select', (emblaApi) => toggleDotButtonsActive(emblaApi, dotNodes));
+  emblaApi.on('select', (emblaApi) =>
+    toggleDotButtonsActive(emblaApi, dotNodes),
+  );
 
   // Ensure autoplay starts correctly
   emblaApi.plugins().autoplay?.play();
