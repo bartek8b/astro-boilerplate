@@ -5,7 +5,6 @@
 
 interface Props {
   items: {
-    id: string;
     title: string;
     para?: string;
     table?: {
@@ -20,55 +19,59 @@ const { items } = Astro.props;
 
 <div class="accordion">
   {
-    items.map((item) => (
-      <div class="accordion-item">
-        <button
-          id={`btn-${item.id}`}
-          class="accordion-header"
-          aria-expanded="false"
-          aria-controls={`para-${item.id}`}
-        >
-          {item.title}
-          <span class="icon-plus-minus" aria-hidden="true">
-            +
-          </span>
-        </button>
+    items.map((item) => {
+      const uniqueId = crypto.randomUUID();
 
-        <div
-          id={`para-${item.id}`}
-          class="accordion-content"
-          role="region"
-          aria-labelledby={`btn-${item.id}`}
-        >
-          {item.para && <p>{item.para}</p>}
+      return (
+        <div class="accordion-item">
+          <button
+            id={`btn-${uniqueId}`}
+            class="accordion-header"
+            aria-expanded="false"
+            aria-controls={`para-${uniqueId}`}
+          >
+            {item.title}
+            <span class="icon-plus-minus" aria-hidden="true">
+              +
+            </span>
+          </button>
 
-          {item.table && (
-            <table>
-              <colgroup>
-                <col class="col-service" />
-                <col class="col-price" />
-              </colgroup>
-              <thead>
-                <tr>
-                  {item.table.headers.map((h, i) => (
-                    <th class={i === 1 ? 'price' : 'service'}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {item.table.rows.map((row) => (
+          <div
+            id={`para-${uniqueId}`}
+            class="accordion-content"
+            role="region"
+            aria-labelledby={`btn-${uniqueId}`}
+          >
+            {item.para && <p>{item.para}</p>}
+
+            {item.table && (
+              <table>
+                <colgroup>
+                  <col class="col-service" />
+                  <col class="col-price" />
+                </colgroup>
+                <thead>
                   <tr>
-                    {row.map((cell, i) => (
-                      <td class={i === 1 ? 'price' : 'service'}>{cell}</td>
+                    {item.table.headers.map((h, i) => (
+                      <th class={i === 1 ? 'price' : 'service'}>{h}</th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                </thead>
+                <tbody>
+                  {item.table.rows.map((row) => (
+                    <tr>
+                      {row.map((cell, i) => (
+                        <td class={i === 1 ? 'price' : 'service'}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
-      </div>
-    ))
+      );
+    })
   }
 </div>
 
@@ -248,7 +251,6 @@ import Accordion from '../components/Accordion.astro';
 
 const myServices = [
   {
-    id: 'service-1',
     title: 'Webpages',
     para: 'Description of the provided services',
     table: {
