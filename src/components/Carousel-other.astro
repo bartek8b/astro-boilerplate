@@ -6,7 +6,11 @@
 import { Image } from 'astro:assets';
 
 interface Props {
-  items: any[];
+  items: {
+    title?: string;
+    para1?: string;
+    para2?: string;
+  }[];
 }
 
 const { items } = Astro.props;
@@ -16,9 +20,13 @@ const { items } = Astro.props;
   <div class="embla__viewport">
     <div class="embla__container">
       {
-        items.map((item, index) => (
+        items.map((item) => (
           <div class="embla__slide">
-            <slot name="item" item={item} index={index} />
+            <article>
+              <strong>{item.title}</strong>
+              <p>{item.para1}</p>
+              <p>{item.para2}</p>
+            </article>
           </div>
         ))
       }
@@ -73,13 +81,6 @@ const { items } = Astro.props;
     padding-left: var(--slide-spacing);
   }
 
-  .embla__img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-  }
-
   .embla__nav-btns-container button {
     border-radius: 999rem;
     border: 1px solid black;
@@ -125,15 +126,13 @@ const { items } = Astro.props;
 <!-- Example of use:
 
 ---
-import Carousel from '../components/Carousel.astro';
-import image1 from '../assets/hero-1.jpg';
-import image2 from '../assets/hero-2.jpg';
+import Carousel-other from '../components/Carousel-other.astro';
 
-const gallery = [
-  { src: image1, alt: "Description of first image" },
-  { src: image2, alt: "Description of second image" },
+const fill = [
+  { title: "Review1", para1: "Paragraph with opinion", para2: "Customer" },
+  { title: "Review2", para1: "Paragraph with opinion", para2: "Customer" },
 ];
 ---
 
-<Carousel images={gallery} />
+<Carousel-other items={fill} />
 -->
