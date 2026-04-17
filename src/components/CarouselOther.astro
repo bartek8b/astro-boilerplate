@@ -3,6 +3,8 @@
  * Embla carousel library installed from npm through ../scripts/embla-carousel.js
  */
 
+import '../styles/carousels.css';
+
 interface Props {
   items: {
     title?: string;
@@ -58,62 +60,9 @@ const { items } = Astro.props;
 
 <style>
   .embla {
+    /* Format sizes for specific carousel or leave fallback from src/styles/carousels.css */
     --slide-size: 50%;
     --slide-size-mobile: 100%; /* Mobile (max-width: 768px) */
-    --slide-spacing: 16px;
-    --slide-spacing-mobile: 8px; /* Mobile (max-width: 768px) */
-  }
-  .embla__viewport {
-    overflow: hidden;
-  }
-
-  .embla__container {
-    display: flex;
-    touch-action: pan-y pinch-zoom;
-    margin-left: calc(var(--slide-spacing) * -1);
-  }
-
-  .embla__slide {
-    flex: 0 0 var(--slide-size);
-    min-width: 0;
-    padding-left: var(--slide-spacing);
-  }
-
-  .embla__nav-btns-container button {
-    border-radius: 999rem;
-    border: 1px solid black;
-    aspect-ratio: 1 / 1;
-    width: 32px;
-    height: auto;
-  }
-
-  .embla__dot {
-    opacity: 0.5;
-    border-radius: 999rem;
-    background-color: black;
-    aspect-ratio: 1 / 1;
-    width: 8px;
-    height: auto;
-    transition:
-      width 0.2s ease,
-      opacity 0.2s ease;
-  }
-
-  .embla__dot--selected {
-    opacity: 1;
-    width: 16px;
-    aspect-ratio: 2 / 1;
-  }
-
-  @media (max-width: 768px) {
-    .embla__container {
-      margin-left: calc(var(--slide-spacing-mobile) * -1);
-    }
-
-    .embla__slide {
-      flex: 0 0 var(--slide-size-mobile);
-      padding-left: var(--slide-spacing-mobile);
-    }
   }
 </style>
 

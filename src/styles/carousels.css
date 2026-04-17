@@ -1,0 +1,59 @@
+/* To be polished for specific styling of the given project */
+
+.embla {
+  --slide-size: 50%;
+  --slide-size-mobile: 100%; /* Mobile (max-width: 768px) */
+  --slide-spacing: 16px;
+  --slide-spacing-mobile: 8px; /* Mobile (max-width: 768px) */
+}
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+.embla__nav-btns-container button {
+  border-radius: 999rem;
+  border: 1px solid black;
+  aspect-ratio: 1 / 1;
+  width: 32px;
+  height: auto;
+}
+
+.embla__dot {
+  opacity: 0.5;
+  border-radius: 999rem;
+  background-color: black;
+  /* Do not use aspect ratio as it spoils transition */
+  width: 8px;
+  height: 8px;
+  transition:
+    width 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.embla__dot--selected {
+  opacity: 1;
+  width: 16px;
+}
+
+@media (max-width: 768px) {
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-mobile) * -1);
+  }
+
+  .embla__slide {
+    flex: 0 0 var(--slide-size-mobile);
+    padding-left: var(--slide-spacing-mobile);
+  }
+}
