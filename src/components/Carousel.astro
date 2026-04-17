@@ -51,13 +51,13 @@ const { images } = Astro.props;
       aria-label="Select slide to display"
     >
     </div>
-    <template id="embla-dot-template">
+    <template class="embla-dot-template">
       <!-- aria-label has to match content within this line in embla-carousel.js: return html.replace('Go to slide', `Go to slide ${index + 1}`); -->
       <button
         class="embla__dot"
         role="tab"
         aria-selected="false"
-        aria-label="Go to slide"
+        aria-label="Go to slide {{INDEX}}"
         tabindex="-1"
       >
       </button>
@@ -86,7 +86,13 @@ const { images } = Astro.props;
     flex: 0 0 var(--slide-size);
     min-width: 0;
     padding-left: var(--slide-spacing);
-    border: 1px solid black;
+  }
+
+  .embla__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
   }
 
   .embla__nav-btns-container button {
@@ -104,6 +110,9 @@ const { images } = Astro.props;
     aspect-ratio: 1 / 1;
     width: 8px;
     height: auto;
+    transition:
+      width 0.2s ease,
+      opacity 0.2s ease;
   }
 
   .embla__dot--selected {
@@ -128,7 +137,7 @@ const { images } = Astro.props;
   import '../scripts/embla-carousel.js';
 </script>
 
-<!-- Exapmle of use:
+<!-- Example of use:
 
 ---
 import Carousel from '../components/Carousel.astro';
