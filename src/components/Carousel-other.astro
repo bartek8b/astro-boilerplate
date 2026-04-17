@@ -1,0 +1,139 @@
+---
+/**
+ * Embla carousel library installed from npm through ../scripts/embla-carousel.js
+ */
+
+import { Image } from 'astro:assets';
+
+interface Props {
+  items: any[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="embla" aria-roledescription="carousel" aria-label="Gallery">
+  <div class="embla__viewport">
+    <div class="embla__container">
+      {
+        items.map((item, index) => (
+          <div class="embla__slide">
+            <slot name="item" item={item} index={index} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="embla__controls">
+    <div class="embla__nav-btns-container">
+      <button class="embla__prev" aria-label="Previous slide">&#706;</button>
+      <button class="embla__next" aria-label="Next slide">&#707;</button>
+    </div>
+
+    <div
+      class="embla__dots"
+      role="tablist"
+      aria-label="Select slide to display"
+    >
+    </div>
+    <template class="embla-dot-template">
+      <button
+        class="embla__dot"
+        role="tab"
+        aria-selected="false"
+        aria-label="Go to slide {{INDEX}}"
+        tabindex="-1"
+      >
+      </button>
+    </template>
+  </div>
+</div>
+
+<style>
+  .embla {
+    --slide-size: 50%;
+    --slide-size-mobile: 100%; /* Mobile (max-width: 768px) */
+    --slide-spacing: 16px;
+    --slide-spacing-mobile: 8px; /* Mobile (max-width: 768px) */
+  }
+  .embla__viewport {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+
+  .embla__slide {
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+  }
+
+  .embla__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .embla__nav-btns-container button {
+    border-radius: 999rem;
+    border: 1px solid black;
+    aspect-ratio: 1 / 1;
+    width: 32px;
+    height: auto;
+  }
+
+  .embla__dot {
+    opacity: 0.5;
+    border-radius: 999rem;
+    background-color: black;
+    aspect-ratio: 1 / 1;
+    width: 8px;
+    height: auto;
+    transition:
+      width 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .embla__dot--selected {
+    opacity: 1;
+    width: 16px;
+    aspect-ratio: 2 / 1;
+  }
+
+  @media (max-width: 768px) {
+    .embla__container {
+      margin-left: calc(var(--slide-spacing-mobile) * -1);
+    }
+
+    .embla__slide {
+      flex: 0 0 var(--slide-size-mobile);
+      padding-left: var(--slide-spacing-mobile);
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/embla-carousel.js';
+</script>
+
+<!-- Example of use:
+
+---
+import Carousel from '../components/Carousel.astro';
+import image1 from '../assets/hero-1.jpg';
+import image2 from '../assets/hero-2.jpg';
+
+const gallery = [
+  { src: image1, alt: "Description of first image" },
+  { src: image2, alt: "Description of second image" },
+];
+---
+
+<Carousel images={gallery} />
+-->
