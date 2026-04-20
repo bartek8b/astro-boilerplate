@@ -13,11 +13,17 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/react": "^5.0.3",
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^6.1.5",
+    "@keystatic/astro": "^5.0.6",
+    "@keystatic/core": "^0.5.50",
+    "astro": "^5.4.2",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
-    "modern-normalize": "^3.0.1"
+    "modern-normalize": "^3.0.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "prettier": "^3.8.2",
