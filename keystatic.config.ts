@@ -19,20 +19,20 @@ export default config({
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Tytuł (Title)' } }),
+        title: fields.slug({ name: { label: 'Title' } }),
         description: fields.text({
-          label: 'Opis (Description)',
+          label: 'Description',
           multiline: true,
         }),
-        pubDate: fields.date({ label: 'Data publikacji (Pub Date)' }),
+        pubDate: fields.date({ label: 'Pub Date' }),
         coverImage: fields.image({
-          label: 'Obrazek okładki (Cover Image)',
+          label: 'Cover Image',
           // Physical location where Keystatic saves the uploaded files
           directory: 'src/assets/images/blog',
           // Relative path written into the .mdx file (how Astro finds the image)
           publicPath: '../../assets/images/blog/',
         }),
-        content: fields.mdx({ label: 'Treść posta (Post Content)' }),
+        content: fields.mdx({ label: 'Post Content' }),
       },
     }),
   },
