@@ -113,11 +113,7 @@ For information about how to connect components with Keystatic check [Content co
 
 ## 📑 Menu (navigtion & footer)
 
-The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `hrefs`. The component automatically detects the active page based on the URL and applies the `isActive` class. It also accepts an `external` prop which, if `true`, appends an external link icon (<svg class="icon-external-link" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-<polyline points="15 3 21 3 21 9"></polyline>
-<line x1="10" y1="14" x2="21" y2="3"></line>
-</svg>).
+The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `hrefs`. The component automatically detects the active page based on the URL and applies the `isActive` class. It also accepts an `external` prop which, if `true`, appends an external link icon.
 
 The `<Navigation>` component should be nested within the `<Header>` component. Both should be styled within their respective `<style>` tags.
 
