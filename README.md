@@ -6,14 +6,14 @@
 
 ## 💡 Why this boilerplate?
 
-* **Headless CMS Integration:** Pre-configured for [Keystatic](https://keystatic.com/), offering a seamless local-first editing experience.
-* **Built-in Component Library:** Ready for personalization and high-performance builds:
-    * **[Embla Carousel](https://www.embla-carousel.com/) Integration:** Lightweight, touch & mouse gestures friendly with autoplay.
-    * **Dynamic Accordion:** Divided content container with the ability to save paragraphs and/or tables.
-    * **Responsive slide-out menu** with smooth transitions.
-    * **Advanced Theme Engine:** Auto & manual dark/light mode toggle with **FOUC prevention** (Flash of Unstyled Content).
-    * **Smart Sticky Header:** Scroll-aware header that hides on scroll-down.
-    * **Scroll-Triggered Animations**: Stylish entry animations setter based on Intersection Observer API.
+- **Headless CMS Integration:** Pre-configured for [Keystatic](https://keystatic.com/), offering a seamless local-first editing experience.
+- **Built-in Component Library:** Ready for personalization and high-performance builds:
+  - **[Embla Carousel](https://www.embla-carousel.com/) Integration:** Lightweight, touch & mouse gestures friendly with autoplay.
+  - **Dynamic Accordion:** Flexible content container with the ability to save paragraphs and/or tables.
+  - **Responsive slide-out menu** with smooth transitions.
+  - **Advanced Theme Engine:** Auto & manual dark/light mode toggle with **FOUC prevention** (Flash of Unstyled Content).
+  - **Smart Sticky Header:** Scroll-aware header that hides on scroll-down.
+  - **Scroll-Triggered Animations**: Stylish entry animations setter powered by Intersection Observer API.
 
 ## 🛠️ How to start?
 
@@ -30,7 +30,7 @@
 
 ## 🔄 Sync Astro content collections with Keystatic UI
 
-Collections in `src/content.config.ts` must match collections in `keystatic.connfig.ts`. There is a exapmle of use in the code.
+Collections in `src/content.config.ts` must match collections in `keystatic.connfig.ts`. There is an example of use in the code.
 
 For more information check [Defining build-time content collections](https://docs.astro.build/en/guides/content-collections/#defining-build-time-content-collections) and [Creating a Keystatic config file](https://keystatic.com/docs/installation-astro#creating-a-keystatic-config-file).
 
@@ -38,14 +38,16 @@ For more information check [Defining build-time content collections](https://doc
 
 ## 🎡 Carousel component
 
-There are 2 modes of carousel in this boilerplate: for pictures (`src/components/CarouselPics.astro`) and for the other type of content (`src/components/CarouselOther.astro`). 
+There are 2 modes of carousel in this boilerplate: for pictures (`src/components/CarouselPics.astro`) and for the other type of content (`src/components/CarouselOther.astro`).
 
-Carousels have to be styled through `src/styles/carousels.css` for common styling in ypur project. There's a option of overwrite slide sizes within `<style>` in each single `<Carousel>` component.
+Common styles are managed via src/styles/carousels.css. You can overwrite slide sizes locally using a <style> tag within the component itself or its parent.
 
-Exapmles of use in `.astro` file:
+Examples of use in a `.astro` file:
 
 ```
 ---
+// src/pages/pictures.astro
+
 import CarouselPics from '../components/CarouselPics.astro';
 import image1 from '../assets/hero-1.jpg';
 import image2 from '../assets/hero-2.jpg';
@@ -61,6 +63,8 @@ const gallery = [
 
 ```
 ---
+// src/pages/richText.astro
+
 import CarouselOther from '../components/CarouselOther.astro';
 
 const fill = [
@@ -78,12 +82,14 @@ For information about how to connect components with Keystatic check [Content co
 
 ## 🪗 Accordion component
 
-Component needs title to be desplayed on the "bar" and optional paragraph and/or table. Accordeon needs to be styled within `<script>` tag.
+The component is styled within its own `<style>` tag. Accordion items require a `title` (displayed on the toggle bar) and support optional paragraphs and/or tables. You can extend or modify the content types by adjusting the `Props` interface in the component file.
 
-Exapmles of use in `.astro` file:
+Examples of use in a `.astro` file:
 
 ```
 ---
+// src/pages/offer.astro
+
 import Accordion from '../components/Accordion.astro';
 
 const myServices = [
@@ -98,7 +104,7 @@ const myServices = [
 ];
 ---
 
-<Accordion items={myServices} /> -->
+<Accordion items={myServices} />
 ```
 
 For information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
@@ -107,4 +113,43 @@ For information about how to connect components with Keystatic check [Content co
 
 ## 📑 Menu (navigtion & footer)
 
-The `navLinks` array within `src/components/Navigation.astro` frontmatter needs to be filled by names with corresponding hrefs. The component will detect the active site upon the URL and mark the proper link with `isActive` class. 
+The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `hrefs`. The component automatically detects the active page based on the URL and applies the `isActive` class. It also accepts an `external` prop which, if `true`, appends an external link icon (<svg class="icon-external-link" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+<polyline points="15 3 21 3 21 9"></polyline>
+<line x1="10" y1="14" x2="21" y2="3"></line>
+</svg>).
+
+The `<Navigation>` component should be nested within the `<Header>` component. Both should be styled within their respective `<style>` tags.
+
+Example of use:
+
+```
+---
+// src/components/Navigation.astro
+
+const navLinks = [
+  { name: 'home', href: '/' },
+  { name: 'page two', href: '/page-two' },
+  { name: 'external', href: 'https://...', external: true },
+];
+
+const pathname = new URL(Astro.url).pathname;
+const currentPath = pathname.replace(/\/$/, '');
+---
+
+<!-- Rest of the code -->
+
+```
+
+```
+---
+// src/pages/index.astro
+
+import Header from '../components/Header.astro'; // Poprawiono z Accordion.astro
+import Navigation from '../components/Navigation.astro';
+---
+
+<Header>
+    <Navigation />
+</Header>
+```
