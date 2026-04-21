@@ -1,39 +1,32 @@
-import { config, fields, collection } from '@keystatic/core';
+// 1. Import utilities from `astro:content`
+import { defineCollection } from 'astro:content';
 
-/** * EXAMPLE OF SETUP:
- * This setup maps the Admin UI to your local file system.
- * It must match the structure defined in /src/content.config.ts.
+// 2. Import loader(s)
+import { glob } from 'astro/loaders';
+
+// 3. Import Zod for schema validation
+import { z } from 'astro/zod';
+
+/** * EXAMPLE OF IMPLEMENTATION:
+ * This configuration must sync with /keystatic.config.ts.
+ * Required folders: '/src/content/blog/' and '/src/assets/images/blog/'.
+ * Always keep a .gitkeep file in empty directories to ensure they are tracked by Git.
  */
 
-export default config({
-  // Use 'local' for development. Change to 'github' or 'cloud' for production/client access.
-  storage: {
-    kind: 'local',
-  },
-  collections: {
-    // Collection key ('blog') must match the key in 'collections' object in content.config.ts
-    blog: collection({
-      label: 'Blog',
-      slugField: 'title',
-      // Determines where new entry files (.mdx) will be stored
-      path: 'src/content/blog/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({ name: { label: 'Tytuł (Title)' } }),
-        description: fields.text({
-          label: 'Opis (Description)',
-          multiline: true,
-        }),
-        pubDate: fields.date({ label: 'Data publikacji (Pub Date)' }),
-        coverImage: fields.image({
-          label: 'Obrazek okładki (Cover Image)',
-          // Physical location where Keystatic saves the uploaded files
-          directory: 'src/assets/images/blog',
-          // Relative path written into the .mdx file (how Astro finds the image)
-          publicPath: '../../assets/images/blog/',
-        }),
-        content: fields.mdx({ label: 'Treść posta (Post Content)' }),
-      },
+// 4. Define a `loader` and `schema` for the collection
+const blog = defineCollection({
+  // Pattern includes .mdoc for Markdoc support if needed
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx,mdoc}' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      // 'image()' enables Astro's native image optimization pipeline
+      coverImage: image().optional(),
+      // 'z.coerce.date()' ensures strings from frontmatter are parsed as JS Date objects
+      pubDate: z.coerce.date(),
     }),
-  },
 });
+
+// 5. Register your collection(s)
+export const collections = { blog };
