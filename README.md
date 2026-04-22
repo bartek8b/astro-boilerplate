@@ -1,6 +1,6 @@
 # 💫 Astro + Keystatic Headless CMS Boilerplate
 
-### A production-ready starter with a library of reusable components with a11y (accessibility) features, offering optimal DX by providing template files while retaining many ways to customize UI.
+### A production-ready starter with a library of reusable components with a11y features, offering optimal DX by providing template files while retaining many ways to customize UI.
 
 <br>
 
