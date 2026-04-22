@@ -1,5 +1,14 @@
 ---
-// src/components/CarouselPicSlide.astro
+/**
+ * HYBRID IMAGE COMPONENT
+ * This component handles two image sourcing methods:
+ * 1. CMS (Keystatic): Receives a relative path string (e.g., "./image.jpg").
+ * The 'import.meta.glob' hack resolves this string into a processed Astro Image object.
+ * 2. MANUAL: Receives a direct import (e.g., import myImg from '../assets/img.jpg').
+ * In this case, 'src' is already an ImageMetadata object and is used directly.
+ * * IMPORTANT: Keystatic images MUST use 'publicPath: "./"' in config to match the glob pattern.
+ */
+
 import { Image } from 'astro:assets';
 
 interface Props {
