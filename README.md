@@ -30,7 +30,7 @@
 
 ## 🔄 Sync Astro content collections with Keystatic UI
 
-Collections in `src/content.config.ts` must match collections in `keystatic.connfig.ts`. These files need to be adapted to your project.
+Collections in `src/content.config.ts` must match collections in `keystatic.config.ts`. These files need to be adapted to your project.
 
 There is a demo in the files above. The demo code renders pages dynamically through src/pages/[...slug].astro.
 
@@ -130,7 +130,7 @@ For information about how to connect components with Keystatic check [Content co
 
 <br>
 
-## 📑 Menu (navigtion & header)
+## 📑 Menu (navigation & header)
 
 The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. also supports an `external` property which, if set to `true`, appends an external link icon.
 
