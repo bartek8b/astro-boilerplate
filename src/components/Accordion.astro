@@ -1,79 +1,13 @@
 ---
 /**
- * Automated via props, manually styled via CSS placeholders.
+ * ACCORDION CONTAINER
+ * This component acts as a pure wrapper for AccordionItem components
+ * passed via MDX slots, enabling dynamic content authoring.
  */
-
-interface Props {
-  items: {
-    title: string;
-    para?: string;
-    table?: {
-      headers: string[];
-      rows: string[][];
-    };
-  }[];
-}
-
-const { items } = Astro.props;
 ---
 
 <div class="accordion">
-  {
-    items.map((item) => {
-      const uniqueId = crypto.randomUUID();
-
-      return (
-        <div class="accordion-item">
-          <button
-            id={`btn-${uniqueId}`}
-            class="accordion-header"
-            aria-expanded="false"
-            aria-controls={`para-${uniqueId}`}
-          >
-            {item.title}
-            <span class="icon-plus-minus" aria-hidden="true">
-              +
-            </span>
-          </button>
-
-          <div
-            id={`para-${uniqueId}`}
-            class="accordion-content"
-            role="region"
-            aria-labelledby={`btn-${uniqueId}`}
-          >
-            {item.para && <p>{item.para}</p>}
-
-            {item.table && (
-              <table>
-                <colgroup>
-                  {item.table.headers.map((_, i) => (
-                    <col class={`col-${i}`} />
-                  ))}
-                </colgroup>
-                <thead>
-                  <tr>
-                    {item.table.headers.map((h, i) => (
-                      <th class={`col-${i}`}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {item.table.rows.map((row) => (
-                    <tr>
-                      {row.map((cell, i) => (
-                        <td class={`col-${i}`}>{cell}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </div>
-      );
-    })
-  }
+  <slot />
 </div>
 
 <style>

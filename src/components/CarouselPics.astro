@@ -1,42 +1,16 @@
 ---
 /**
  * Embla carousel library installed from npm through ../scripts/embla-carousel.js
+ * * Acts as a container for CarouselPicSlide components.
  */
 
-import { Image } from 'astro:assets';
 import '../styles/carousels.css';
-
-interface Props {
-  images: {
-    src: ImageMetadata;
-    alt: string;
-  }[];
-}
-
-const { images } = Astro.props;
 ---
 
 <div class="embla" aria-roledescription="carousel" aria-label="Gallery">
   <div class="embla__viewport">
     <div class="embla__container">
-      {
-        images.map((img, index) => (
-          <div
-            class="embla__slide"
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${index + 1} of ${images.length}`}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              class="embla__img"
-              widths={[400, 800, 1200]}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        ))
-      }
+      <slot />
     </div>
   </div>
 

@@ -1,35 +1,16 @@
 ---
 /**
  * Embla carousel library installed from npm through ../scripts/embla-carousel.js
+ * * Acts as a container for CarouselOtherSlide components.
  */
 
 import '../styles/carousels.css';
-
-interface Props {
-  items: {
-    title?: string;
-    para1?: string;
-    para2?: string;
-  }[];
-}
-
-const { items } = Astro.props;
 ---
 
 <div class="embla" aria-roledescription="carousel" aria-label="Gallery">
   <div class="embla__viewport">
     <div class="embla__container">
-      {
-        items.map((item) => (
-          <div class="embla__slide">
-            <article>
-              <strong>{item.title}</strong>
-              <p>{item.para1}</p>
-              <p>{item.para2}</p>
-            </article>
-          </div>
-        ))
-      }
+      <slot />
     </div>
   </div>
 
