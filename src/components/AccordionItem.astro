@@ -1,0 +1,30 @@
+---
+// Komponent obsługuje pojedynczy wiersz akordeonu
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const uniqueId = crypto.randomUUID();
+---
+
+<div class="accordion-item">
+  <button
+    id={`btn-${uniqueId}`}
+    class="accordion-header"
+    aria-expanded="false"
+    aria-controls={`para-${uniqueId}`}
+  >
+    {title}
+    <span class="icon-plus-minus" aria-hidden="true">+</span>
+  </button>
+
+  <div
+    id={`para-${uniqueId}`}
+    class="accordion-content"
+    role="region"
+    aria-labelledby={`btn-${uniqueId}`}
+  >
+    <slot />
+  </div>
+</div>

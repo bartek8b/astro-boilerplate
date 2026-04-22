@@ -1,0 +1,15 @@
+---
+// Komponent dla slajdów z treścią bogatą (np. opinie)
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="embla__slide">
+  <article>
+    {title && <strong>{title}</strong>}
+    <slot />
+  </article>
+</div>
