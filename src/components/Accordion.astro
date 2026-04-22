@@ -21,31 +21,29 @@
     gap: 0; /* TODO: Add custom styling */
   }
 
-  .accordion-item {
+  .accordion :global(.accordion-item) {
     display: flex;
     flex-direction: column;
     gap: 0; /* TODO: Add custom styling */
   }
 
-  .accordion-item > * {
+  .accordion :global(.accordion-item > *) {
     padding-inline: 0; /* TODO: Add custom styling */
   }
 
   /* Styling of expanded item */
-  .accordion-item.expanded .accordion-header,
-  .accordion-header:active {
-    background-color: tomato; /* TODO: Add custom styling and keep it within @media: hover */
-    color: green; /* TODO: Add custom styling and keep it within @media: hover */
+  .accordion :global(.accordion-item.expanded .accordion-header) {
+    background-color: red; /* TODO: Add custom styling and keep it within @media: hover */
   }
 
-  .accordion-item.expanded {
+  .accordion :global(.accordion-item.expanded) {
     margin-bottom: 0; /* TODO: Add custom styling */
   }
 
-  .accordion-header {
+  .accordion :global(.accordion-header) {
     width: 100%;
-    background-color: transparent;
-    color: inherit;
+    background-color: tomato;
+    color: green; /* TODO: Add custom styling and keep it within @media: hover */
     border: 0; /* TODO: Add custom styling */
     border-radius: 0; /* TODO: Add custom styling */
     cursor: pointer;
@@ -57,17 +55,17 @@
     align-items: center;
   }
 
-  .accordion-header:active,
-  .accordion-item.expanded .accordion-header {
-    background-color: 0; /* TODO: Add custom styling */
-    color: 0; /* TODO: Add custom styling */
+  .accordion :global(.accordion-item.expanded .accordion-header),
+  .accordion :global(.accordion-header:active) {
+    background-color: red; /* TODO: Add custom styling */
+    color: green; /* TODO: Add custom styling */
   }
 
-  .icon-plus-minus {
+  .accordion :global(.icon-plus-minus) {
     font-size: 0; /* TODO: Add custom styling */
   }
 
-  .accordion-content {
+  .accordion :global(.accordion-content) {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
@@ -76,34 +74,9 @@
     gap: 0; /* TODO: Add custom styling */ /* TODO: Add custom styling */
   }
 
-  .accordion-content > table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .accordion-content table .col-1 {
-    width: 25%;
-    text-align: center;
-  }
-
-  .accordion-content > table .col-0 {
-    text-align: start;
-  }
-
-  .accordion-content > table th,
-  .accordion-content > table td {
-    border-bottom: 0; /* TODO: Add custom styling */ /* TODO: Add custom styling */
-    padding-block: 0; /* TODO: Add custom styling */ /* TODO: Add custom styling */
-  }
-
-  .accordion-content table th {
-    font-weight: bold;
-  }
-
   @media (hover: hover) {
-    .accordion-header:hover {
-      background-color: tomato; /* TODO: Add custom styling */
-      color: green; /* TODO: Add custom styling */
+    .accordion :global(.accordion-header:hover) {
+      background-color: red; /* TODO: Add custom styling */
     }
   }
 </style>
