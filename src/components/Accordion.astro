@@ -183,21 +183,3 @@
   initAccordion();
   document.addEventListener('astro:after-swap', initAccordion);
 </script>
-
-<!-- Exapmle of use:
-
----
-import Accordion from '../components/Accordion.astro';
-
-const myServices = [
-  {
-    title: 'Webpages',
-    para: 'Description of the provided services',
-    table: {
-      headers: ['Service', 'Price'],
-      rows: [['Landing Page', '1500 PLN'], ['Multi site', '2500 PLN']]
-    }
-  }
-];
----
-<Accordion items={myServices} /> -->
