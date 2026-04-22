@@ -30,7 +30,9 @@
 
 ## 🔄 Sync Astro content collections with Keystatic UI
 
-Collections in `src/content.config.ts` must match collections in `keystatic.connfig.ts`. There is an example of use in the code.
+Collections in `src/content.config.ts` must match collections in `keystatic.connfig.ts`. These files need to be adapted to your project.
+
+There is a demo in the files above. The demo code renders pages dynamically through src/pages/[...slug].astro.
 
 For more information check [Defining build-time content collections](https://docs.astro.build/en/guides/content-collections/#defining-build-time-content-collections) and [Creating a Keystatic config file](https://keystatic.com/docs/installation-astro#creating-a-keystatic-config-file).
 
@@ -38,84 +40,101 @@ For more information check [Defining build-time content collections](https://doc
 
 ## 🎡 Carousel component
 
-There are 2 modes of carousel in this boilerplate: for pictures (`src/components/CarouselPics.astro`) and for the other type of content (`src/components/CarouselOther.astro`).
+There are 2 modes of carousel in this boilerplate: one for pictures (`src/components/CarouselPics.astro`) and one for trich content (`src/components/CarouselOther.astro`). Both act as containers and must be populated with their respective slide components: `CarouselPicSlide.astro` or `CarouselOtherSlide.astro`.
 
-Common styles are managed via src/styles/carousels.css. You can overwrite slide sizes locally using a <style> tag within the component itself or its parent.
+Common styles are managed via `src/styles/carousels.css`. You can overwrite slide sizes locally using a <style> tag within the component itself or its parent.
 
 Examples of use in a `.astro` file:
+
+Picture Carousel (with Local Assets):
 
 ```
 ---
 // src/pages/pictures.astro
-
 import CarouselPics from '../components/CarouselPics.astro';
+import CarouselPicSlide from '../components/CarouselPicSlide.astro';
+
 import image1 from '../assets/hero-1.jpg';
 import image2 from '../assets/hero-2.jpg';
-
-const gallery = [
-  { src: image1, alt: "Description of first image" },
-  { src: image2, alt: "Description of second image" },
-];
 ---
 
-<CarouselPics images={gallery} />
+<CarouselPics>
+  <CarouselPicSlide src={image1} alt="Description of first image" />
+  <CarouselPicSlide src={image2} alt="Description of second image" />
+</CarouselPics>
 ```
+
+Content Carousel (Rich Text/Reviews):
 
 ```
 ---
-// src/pages/richText.astro
-
+---
+// src/pages/reviews.astro
 import CarouselOther from '../components/CarouselOther.astro';
-
-const fill = [
-  { title: "Review1", para1: "Paragraph with opinion", para2: "Customer" },
-  { title: "Review2", para1: "Paragraph with opinion", para2: "Customer" },
-];
+import CarouselOtherSlide from '../components/CarouselOtherSlide.astro';
 ---
 
-<CarouselOther items={fill} />
+<CarouselOther>
+  <CarouselOtherSlide title="Customer Review">
+    <p>This is a paragraph with a customer's opinion.</p>
+    <span>John Doe</span>
+  </CarouselOtherSlide>
+
+  <CarouselOtherSlide title="Expert Opinion">
+    <p>Another slide with different content.</p>
+  </CarouselOtherSlide>
+</CarouselOther>
 ```
 
-For information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
+For more information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
 
 <br>
 
 ## 🪗 Accordion component
 
-The component is styled within its own `<style>` tag. Accordion items require a `title` (displayed on the toggle bar) and support optional paragraphs and/or tables. You can extend or modify the content types by adjusting the `Props` interface in the component file.
+The Accordion is styled within its own `<style>` tag. Accordion items require a `title` (displayed on the toggle bar) and are containers for `<slot />` of any kind.
+
+Each `AccordionItem` requires a `title` and uses `crypto.randomUUID()` to ensure unique IDs for ARIA attributes.
 
 Examples of use in a `.astro` file:
 
 ```
 ---
 // src/pages/offer.astro
-
 import Accordion from '../components/Accordion.astro';
-
-const myServices = [
-  {
-    title: 'Webpages',
-    para: 'Description of the provided services',
-    table: {
-      headers: ['Service', 'Price'],
-      rows: [['Landing Page', '1500 PLN'], ['Multi site', '2500 PLN']]
-    }
-  }
-];
+import AccordionItem from '../components/AccordionItem.astro';
 ---
 
-<Accordion items={myServices} />
+<Accordion>
+  <AccordionItem title="Webpages">
+    <p>Description of the provided services.</p>
+
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Landing Page</td><td>3000 PLN</td></tr>
+        <tr><td>Multi site</td><td>9000 PLN</td></tr>
+      </tbody>
+    </table>
+  </AccordionItem>
+
+  <AccordionItem title="SEO Optimization">
+    <p>Basic SEO setup for your website.</p>
+  </AccordionItem>
+</Accordion>
 ```
 
 For information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
 
 <br>
 
-## 📑 Menu (navigtion & footer)
+## 📑 Menu (navigtion & header)
 
-The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `hrefs`. The component automatically detects the active page based on the URL and applies the `isActive` class. It also accepts an `external` prop which, if `true`, appends an external link icon.
+The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. also supports an `external` property which, if set to `true`, appends an external link icon.
 
-The `<Navigation>` component should be nested within the `<Header>` component. Both should be styled within their respective `<style>` tags.
+The `<Navigation>` component is designed to be nested within a `<Header>` component. Both should be styled within their respective `<style>` tags.
 
 Example of use:
 
@@ -133,19 +152,21 @@ const pathname = new URL(Astro.url).pathname;
 const currentPath = pathname.replace(/\/$/, '');
 ---
 
-<!-- Rest of the code -->
-
 ```
 
 ```
 ---
 // src/pages/index.astro
 
-import Header from '../components/Header.astro'; // Poprawiono z Accordion.astro
+import Header from '../components/Header.astro';
 import Navigation from '../components/Navigation.astro';
+import logo form './assets/logo.webp'
 ---
 
 <Header>
-    <Navigation />
+  <a href="/">
+    <Image src={logo} alt="Company Logo" width={150} />
+  </a>
+  <Navigation />
 </Header>
 ```
