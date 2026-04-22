@@ -1,5 +1,11 @@
 ---
+// BOILER PLATE DYNAMIC BUILD DEMO
 import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// 1. COMPONENT IMPORTS
+// When adding new components to the Keystatic MDX editor,
+// remember to import them here and add them to the 'components' object below
 import Accordion from '../components/Accordion.astro';
 import AccordionItem from '../components/AccordionItem.astro';
 import CarouselPics from '../components/CarouselPics.astro';
@@ -10,30 +16,38 @@ import CarouselOtherSlide from '../components/CarouselOtherSlide.astro';
 export async function getStaticPaths() {
   const entries = await getCollection('pages');
   return entries.map((entry) => ({
+    // Handles the 'index' slug for the homepage, otherwise uses the entry ID.
     params: { slug: entry.id === 'index' ? undefined : entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
+
+/**
+ * 2. MDX RENDERING
+ * 'render(entry)' converts the MDX content into a renderable 'Content' component.
+ * Any custom components used inside Keystatic must be passed to the 'components' prop.
+ */
 const { Content } = await render(entry);
 
 const components = {
   Accordion,
   AccordionItem,
   CarouselPics,
-  CarouselPicSlide, // Wracamy do zwykłego komponentu
+  /**
+   * IMPORTANT FOR IMAGES:
+   * Inside CarouselPicSlide.astro, we use 'import.meta.glob' to resolve image paths.
+   * In Keystatic, always ensure the image path starts with './' (e.g., ./my-image.webp).
+   * This allows Astro's Assets (Image component) to optimize local files from content folders.
+   */
+  CarouselPicSlide,
   CarouselOther,
   CarouselOtherSlide,
 };
 ---
 
-<html>
-  <head><title>{entry.data.title}</title></head>
-  <body>
-    <h1>{entry.data.title}</h1>
-    <main>
-      <Content components={components} />
-    </main>
-  </body>
-</html>
+<BaseLayout title={entry.data.title} description="Demo page">
+  <h1>{entry.data.title}</h1>
+  <Content components={components} />
+</BaseLayout>
