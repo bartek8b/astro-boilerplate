@@ -1,38 +1,72 @@
 import { config, fields, collection } from '@keystatic/core';
+import { repeating, wrapper } from '@keystatic/core/content-components';
 
-/** * EXAMPLE OF SETUP:
+/** * EXAMPLE OF SETUP FOR COMPONENTS ACCORDION, CAROUSELPICS, CAROUSELOTHER:
  * This setup maps the Admin UI to your local file system.
  * It must match the structure defined in /src/content.config.ts.
  */
 
 export default config({
-  // Use 'local' for development. Change to 'github' or 'cloud' for production/client access.
   storage: {
     kind: 'local',
   },
   collections: {
-    // Collection key ('blog') must match the key in 'collections' object in content.config.ts
-    blog: collection({
-      label: 'Blog',
+    pages: collection({
+      label: 'Pages',
       slugField: 'title',
-      // Determines where new entry files (.mdx) will be stored
-      path: 'src/content/blog/*',
+      path: 'src/content/pages/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({
-          label: 'Description',
-          multiline: true,
+        title: fields.slug({ name: { label: 'Page Title' } }),
+        content: fields.mdx({
+          label: 'Page Content',
+          components: {
+            // ACCORDION
+            Accordion: repeating({
+              label: 'Accordion Group',
+              children: ['AccordionItem'],
+              schema: {},
+            }),
+            AccordionItem: wrapper({
+              label: 'Accordion Item',
+              schema: {
+                title: fields.text({ label: 'Item Title' }),
+              },
+            }),
+
+            // CAROUSEL PICS
+            CarouselPics: repeating({
+              label: 'Image Carousel',
+              children: ['CarouselPicSlide'],
+              schema: {},
+            }),
+            CarouselPicSlide: wrapper({
+              label: 'Image Slide',
+              schema: {
+                alt: fields.text({ label: 'Alt Text' }),
+                src: fields.image({
+                  label: 'Image',
+                  directory: 'src/content/pages',
+                  publicPath: './',
+                  validation: { isRequired: true },
+                }),
+              },
+            }),
+
+            // CAROUSEL OTHER
+            CarouselOther: repeating({
+              label: 'Content Carousel',
+              children: ['CarouselOtherSlide'],
+              schema: {},
+            }),
+            CarouselOtherSlide: wrapper({
+              label: 'Content Slide',
+              schema: {
+                title: fields.text({ label: 'Slide Title (Optional)' }),
+              },
+            }),
+          },
         }),
-        pubDate: fields.date({ label: 'Pub Date' }),
-        coverImage: fields.image({
-          label: 'Cover Image',
-          // Physical location where Keystatic saves the uploaded files
-          directory: 'src/assets/images/blog',
-          // Relative path written into the .mdx file (how Astro finds the image)
-          publicPath: '../../assets/images/blog/',
-        }),
-        content: fields.mdx({ label: 'Post Content' }),
       },
     }),
   },

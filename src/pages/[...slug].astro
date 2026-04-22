@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import Accordion from '../components/Accordion.astro';
+import AccordionItem from '../components/AccordionItem.astro';
+import CarouselPics from '../components/CarouselPics.astro';
+import CarouselPicSlide from '../components/CarouselPicSlide.astro';
+import CarouselOther from '../components/CarouselOther.astro';
+import CarouselOtherSlide from '../components/CarouselOtherSlide.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('pages');
+  return entries.map((entry) => ({
+    params: { slug: entry.id === 'index' ? undefined : entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const components = {
+  Accordion,
+  AccordionItem,
+  CarouselPics,
+  CarouselPicSlide, // Wracamy do zwykłego komponentu
+  CarouselOther,
+  CarouselOtherSlide,
+};
+---
+
+<html>
+  <head><title>{entry.data.title}</title></head>
+  <body>
+    <h1>{entry.data.title}</h1>
+    <main>
+      <Content components={components} />
+    </main>
+  </body>
+</html>
