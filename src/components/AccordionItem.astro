@@ -1,5 +1,12 @@
 ---
-// Komponent obsługuje pojedynczy wiersz akordeonu
+/**
+ * ACCORDION ITEM COMPONENT
+ * Controls a single expandable row within an Accordion.
+ * - Uses 'crypto.randomUUID()' to ensure unique IDs for ARIA attributes.
+ * - Accessibility: Links the button with the content panel via 'aria-controls' and 'aria-labelledby'.
+ * - Content: Injected via the default <slot />.
+ */
+
 interface Props {
   title: string;
 }
