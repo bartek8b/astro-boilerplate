@@ -24,6 +24,34 @@
 
 <br>
 
+## 🤖 Dependency management & compatibility
+
+This boilerplate is pre-configured with [Dependabot](https://github.com/dependabot) to keep your project secure and up to date through weekly automated dependency checks.
+
+### ⚠️ Astro 5 & Keystatic compatibility ⚠️
+
+**Note**: Versions 6.0.0 and above of `astro` and `@astrojs/*` packages are currently ignored in `dependabot.yml`. This prevents automated updates from breaking the Keystatic integration until full compatibility with Astro 6 is verified and tested.
+
+```
+// dependabot.yml
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    ignore:
+      - dependency-name: 'astro'
+        versions: ['>= 6.0.0']
+      - dependency-name: '@astrojs/*'
+        versions: ['>= 6.0.0']
+```
+
+<br>
+<br>
+<br>
+
 # ⚙️ Configuration
 
 <br>
