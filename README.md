@@ -70,6 +70,105 @@ For more information check [Defining build-time content collections](https://doc
 
 <br>
 
+## 🧩 Layout and components
+
+This boilerplate has `src/layouts/BaseLayout.astro` with nested `<Head />` component. This layout can serve as container for all the pages within your project. It takes props: `lang` (`'en'` by default), `title`, `description` and `ogImgUrl` (`'/ogp-image.jpg'` by default).
+
+```
+src/layouts/BaseLayout.astro
+---
+import 'modern-normalize/modern-normalize.css';
+import '../styles/global.css';
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+
+const {
+  lang = 'en',
+  title,
+  description,
+  ogImgUrl = '/ogp-image.jpg',
+} = Astro.props;
+---
+
+<html lang={lang}>
+  <Head title={title} description={description} ogImgUrl={ogImgUrl} />
+
+  <body>
+    <Header transition:persist />
+
+    <main transition:name="main" transition:animate="fade">
+      <slot />
+    </main>
+
+    <footer transition:persist>
+      </footer>
+  </body>
+
+  <!-- Rest of the code -->
+</html>
+```
+
+Example of use:
+
+```
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home Page" description="Welcome to our site">
+  <h1>Hello World</h1>
+  <p>This content will be injected into the slot of BaseLayout.</p>
+</BaseLayout>
+```
+
+For more information check [Components](https://docs.astro.build/en/basics/astro-components/), [Layouts](https://docs.astro.build/en/basics/layouts/), and [Rendering Keystatic content](https://keystatic.com/docs/installation-astro#rendering-keystatic-content).
+
+<br>
+
+## 📑 Menu (navigation & header)
+
+The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. also supports an `external` property which, if set to `true`, appends an external link icon.
+
+The `<Navigation>` component is designed to be nested within a `<Header>` component. Both should be styled within their respective `<style>` tags.
+
+Example of use:
+
+```
+---
+// src/components/Navigation.astro
+
+const navLinks = [
+  { name: 'home', href: '/' },
+  { name: 'page two', href: '/page-two' },
+  { name: 'external', href: 'https://...', external: true },
+];
+
+const pathname = new URL(Astro.url).pathname;
+const currentPath = pathname.replace(/\/$/, '');
+---
+
+```
+
+```
+---
+// src/pages/index.astro
+
+import Header from '../components/Header.astro';
+import Navigation from '../components/Navigation.astro';
+import logo form './assets/logo.webp'
+---
+
+<Header>
+  <a href="/">
+    <Image src={logo} alt="Company Logo" width={150} />
+  </a>
+  <Navigation />
+</Header>
+```
+
+<br>
+
 ## 🎡 Carousel component
 
 There are 2 modes of carousel in this boilerplate: one for pictures (`src/components/CarouselPics.astro`) and one for trich content (`src/components/CarouselOther.astro`). Both act as containers and must be populated with their respective slide components: `CarouselPicSlide.astro` or `CarouselOtherSlide.astro`.
@@ -159,48 +258,5 @@ import AccordionItem from '../components/AccordionItem.astro';
 ```
 
 For information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
-
-<br>
-
-## 📑 Menu (navigation & header)
-
-The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. also supports an `external` property which, if set to `true`, appends an external link icon.
-
-The `<Navigation>` component is designed to be nested within a `<Header>` component. Both should be styled within their respective `<style>` tags.
-
-Example of use:
-
-```
----
-// src/components/Navigation.astro
-
-const navLinks = [
-  { name: 'home', href: '/' },
-  { name: 'page two', href: '/page-two' },
-  { name: 'external', href: 'https://...', external: true },
-];
-
-const pathname = new URL(Astro.url).pathname;
-const currentPath = pathname.replace(/\/$/, '');
----
-
-```
-
-```
----
-// src/pages/index.astro
-
-import Header from '../components/Header.astro';
-import Navigation from '../components/Navigation.astro';
-import logo form './assets/logo.webp'
----
-
-<Header>
-  <a href="/">
-    <Image src={logo} alt="Company Logo" width={150} />
-  </a>
-  <Navigation />
-</Header>
-```
 
 <br>
