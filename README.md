@@ -30,11 +30,43 @@
 
 ## 🔄 Sync Astro content collections with Keystatic UI
 
-Collections in `src/content.config.ts` must match collections in `keystatic.config.ts`. These files need to be adapted to your project.
+Collections in `src/content.config.ts` must match collections in `keystatic.config.ts`. **These files need to be adapted to your project's specific needs.** Check [Keystatic docs](https://keystatic.com/docs/introduction) for more information.
 
-There is a demo in the files above. The demo code renders pages dynamically through src/pages/[...slug].astro.
+The provided demo uses `src/pages/[...slug].astro` to render pages dynamically. You can manage and add components manually via the Keystatic Admin UI at `http://localhost:4321/keystatic`.
 
 For more information check [Defining build-time content collections](https://docs.astro.build/en/guides/content-collections/#defining-build-time-content-collections) and [Creating a Keystatic config file](https://keystatic.com/docs/installation-astro#creating-a-keystatic-config-file).
+
+<br>
+
+## 🧱 Structure of the boilerplate
+
+```
+├── src/
+│   ├── assets/             
+│   ├── components/         
+│   │   ├── Accordion.astro
+│   │   ├── AccordionItem.astro
+│   │   ├── CarouselPics.astro
+│   │   ├── CarouselPicsSlide.astro
+│   │   ├── CarouselPics.astro
+│   │   ├── CarouselPicSlide.astro
+│   │   ├── Head.astro  
+│   │   ├── Header.astro        # Treści zarządzane przez Keystatic (Markdown)     
+│   │   └── Navigation.astro
+│   ├── content/                # Treści zarządzane przez Keystatic (Markdown)
+│   ├── layouts/
+│   │   └── BaseLayout.astro    # Szablony stron (np. BaseLayout.astro)
+│   ├── pages/                  # Routing oparty na plikach (strony .astro i API)
+│   │   ├── [slug].astro        # Jak to nazwać
+│   │   └── robots.txt
+│   ├── scripts/
+│   └── styles/
+├── public/
+├── astro.config.mjs
+├── keystatic.config.ts         # Konfiguracja panelu CMS Keystatic
+├── tsconfig.json
+└── package.json
+```
 
 <br>
 
@@ -170,3 +202,5 @@ import logo form './assets/logo.webp'
   <Navigation />
 </Header>
 ```
+
+<br>
