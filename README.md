@@ -132,6 +132,8 @@ The `navLinks` array within `src/components/Navigation.astro` should be populate
 
 The `<Navigation>` component is designed to be nested within a `<Header>` component. Both should be styled within their respective `<style>` tags.
 
+The `href` values in `navLinks` must match the file structure in `src/pages/` or your dynamic routes.
+
 Example of use:
 
 ```
@@ -166,6 +168,40 @@ import logo form './assets/logo.webp'
   <Navigation />
 </Header>
 ```
+
+<br>
+
+## 🌙 Dark mode toggling
+
+To prevent [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content), a blocking script is included in the `<Head />` component. It's useful especially when using dark color scheme to avoid flash of white page while loading page. For this reason, `<Head />` is an integral part of `src/layouts/BaseLayout.astro`.
+
+The theme toggle consists of a `<button>` located in the `<Navigation />` component, with its logic handled by `src/scripts/theme-toggle.js`. Ensure that the class names remain consistent between the script and the component.
+
+```
+// src/scripts/theme-toggle.js
+
+// ...
+const colorSchemeBtn = document.querySelector('.theme-toggle-btn');
+// ...
+```
+
+```
+---
+// src/components/Navigation.astro
+---
+<button class="theme-toggle-btn" aria-label="Toggle dark mode">
+  </button>
+
+<style>
+  .theme-toggle-btn {
+    cursor: pointer;
+    color: currentColor;
+    padding: 0.5rem;
+  }
+</style>
+```
+
+**Note:** See also the `[data-theme='dark']` block in `src/style/global.css` for theme-specific CSS variables.
 
 <br>
 
