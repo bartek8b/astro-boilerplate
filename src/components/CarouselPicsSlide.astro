@@ -1,0 +1,54 @@
+---
+/**
+ * HYBRID IMAGE COMPONENT
+ * This component handles two image sourcing methods:
+ * 1. CMS (Keystatic): Receives a relative path string (e.g., "./image.jpg").
+ * The 'import.meta.glob' hack resolves this string into a processed Astro Image object.
+ * 2. MANUAL: Receives a direct import (e.g., import myImg from '../assets/img.jpg').
+ * In this case, 'src' is already an ImageMetadata object and is used directly.
+ * * IMPORTANT: Keystatic images MUST use 'publicPath: "./"' in config to match the glob pattern.
+ */
+
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+
+// Import every posiible image
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/content/pages/**/*.{jpeg,jpg,png,gif,webp,avif}',
+);
+
+let imageObject;
+
+if (typeof src === 'string') {
+  const fileName = src.replace('./', '');
+  const match = Object.keys(images).find((key) => key.endsWith(fileName));
+
+  if (match) {
+    imageObject = (await images[match]()).default;
+  }
+} else {
+  imageObject = src;
+}
+---
+
+<div class="embla__slide" role="group" aria-roledescription="slide">
+  {
+    imageObject ? (
+      <Image
+        src={imageObject}
+        alt={alt}
+        class="embla__img"
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    ) : (
+      <div class="error">Nie znaleziono obrazu: {src}</div>
+    )
+  }
+</div>
