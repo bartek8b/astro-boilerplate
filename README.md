@@ -46,24 +46,24 @@ For more information check [Defining build-time content collections](https://doc
 │   ├── components/
 │   │   ├── Accordion.astro
 │   │   ├── AccordionItem.astro
-│   │   ├── CarouselPics.astro
-│   │   ├── CarouselPicsSlide.astro
-│   │   ├── CarouselPics.astro
+│   │   ├── CarouselOther.astro       # For rich text content
+│   │   ├── CarouselOtherSlide.astro
+│   │   ├── CarouselPics.astro        # For images
 │   │   ├── CarouselPicSlide.astro
-│   │   ├── Head.astro
-│   │   ├── Header.astro        # Treści zarządzane przez Keystatic (Markdown)
+│   │   ├── Head.astro                # Metadata
+│   │   ├── Header.astro              # Wrapper for Navigation with on scroll toggling visibility
 │   │   └── Navigation.astro
-│   ├── content/                # Treści zarządzane przez Keystatic (Markdown)
+│   ├── content/                      # Keystatic driven content (Markdown)
 │   ├── layouts/
-│   │   └── BaseLayout.astro    # Szablony stron (np. BaseLayout.astro)
-│   ├── pages/                  # Routing oparty na plikach (strony .astro i API)
-│   │   ├── [slug].astro        # Jak to nazwać
-│   │   └── robots.txt
-│   ├── scripts/
-│   └── styles/
+│   │   └── BaseLayout.astro
+│   ├── pages/
+│   │   └── [slug].astro              # Dynamic route for rendering CMS pages
+│   ├── scripts/                      # Global JS logic, components helpers
+│   ├── styles/                       # Global CSS, Carousel items helpers
+│   └── content.config.ts             # Astro content layer
 ├── public/
 ├── astro.config.mjs
-├── keystatic.config.ts         # Konfiguracja panelu CMS Keystatic
+├── keystatic.config.ts               # Keystatic panel config - needs to fit Astro content layer
 ├── tsconfig.json
 └── package.json
 ```
