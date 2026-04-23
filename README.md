@@ -74,7 +74,7 @@ For more information check [Defining build-time content collections](https://doc
 
 There are 2 modes of carousel in this boilerplate: one for pictures (`src/components/CarouselPics.astro`) and one for trich content (`src/components/CarouselOther.astro`). Both act as containers and must be populated with their respective slide components: `CarouselPicSlide.astro` or `CarouselOtherSlide.astro`.
 
-Common styles are managed via `src/styles/carousels.css`. You can overwrite slide sizes locally using a <style> tag within the component itself or its parent.
+Common styles are managed via `src/styles/carousels.css`. You can overwrite slide sizes locally using a `<style>` tag within the component itself or its parent.
 
 Examples of use in a `.astro` file:
 
