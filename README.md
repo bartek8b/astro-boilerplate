@@ -28,16 +28,6 @@
 
 <br>
 
-## 🔄 Sync Astro content collections with Keystatic UI
-
-Collections in `src/content.config.ts` must match collections in `keystatic.config.ts`. **These files need to be adapted to your project's specific needs.** Check [Keystatic docs](https://keystatic.com/docs/introduction) for more information.
-
-The provided demo uses `src/pages/[...slug].astro` to render pages dynamically. You can manage and add components manually via the Keystatic Admin UI at `http://localhost:4321/keystatic`.
-
-For more information check [Defining build-time content collections](https://docs.astro.build/en/guides/content-collections/#defining-build-time-content-collections) and [Creating a Keystatic config file](https://keystatic.com/docs/installation-astro#creating-a-keystatic-config-file).
-
-<br>
-
 ## 🧱 Structure of the boilerplate
 
 ```
@@ -57,7 +47,7 @@ For more information check [Defining build-time content collections](https://doc
 │   ├── layouts/
 │   │   └── BaseLayout.astro
 │   ├── pages/
-│   │   └── [slug].astro              # Dynamic route for rendering CMS pages
+│   │   └── [...slug].astro              # Dynamic route for rendering CMS pages
 │   ├── scripts/                      # Global JS logic, components helpers
 │   ├── styles/                       # Global CSS, Carousel items helpers
 │   └── content.config.ts             # Astro content layer
@@ -67,6 +57,37 @@ For more information check [Defining build-time content collections](https://doc
 ├── tsconfig.json
 └── package.json
 ```
+
+<br>
+
+## 🗺️ Sitemap integration
+
+This boilerplate includes the `@astrojs/sitemap` integration. To generate a valid `sitemap-index.xml`, you **must manually update the** `site` property in the `astro.config.mjs` file with your production URL.
+
+```
+// astro.config.mjs
+
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  // IMPORTANT: Replace with your actual production URL
+  site: 'https://your-domain.com/',
+  integrations: [sitemap(), react(), keystatic(), mdx()],
+});
+```
+
+**Note:** See also [Astro Sitemap integration guide](https://docs.astro.build/en/guides/integrations-guide/sitemap/).
+
+<br>
+
+## 🔄 Sync Astro content collections with Keystatic UI
+
+Collections in `src/content.config.ts` must match collections in `keystatic.config.ts`. **These files need to be adapted to your project's specific needs.** Check [Keystatic docs](https://keystatic.com/docs/introduction) for more information.
+
+The provided demo uses `src/pages/[...slug].astro` to render pages dynamically. You can manage and add components manually via the Keystatic Admin UI at `http://localhost:4321/keystatic`.
+
+**Note:** See also [Defining build-time content collections](https://docs.astro.build/en/guides/content-collections/#defining-build-time-content-collections), and [Creating a Keystatic config file](https://keystatic.com/docs/installation-astro#creating-a-keystatic-config-file).
 
 <br>
 
@@ -122,13 +143,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 ```
 
-For more information check [Components](https://docs.astro.build/en/basics/astro-components/), [Layouts](https://docs.astro.build/en/basics/layouts/), and [Rendering Keystatic content](https://keystatic.com/docs/installation-astro#rendering-keystatic-content).
+**Note:** See also [Components](https://docs.astro.build/en/basics/astro-components/), [Layouts](https://docs.astro.build/en/basics/layouts/), and [Rendering Keystatic content](https://keystatic.com/docs/installation-astro#rendering-keystatic-content).
 
 <br>
 
 ## 📑 Menu (navigation & header)
 
-The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. also supports an `external` property which, if set to `true`, appends an external link icon.
+The `navLinks` array within `src/components/Navigation.astro` should be populated with labels and their corresponding `href` paths. The component automatically detects the active page based on the URL and applies the `.current` class. It also supports an `external` property which, if set to `true`, appends an external link icon.
 
 The `<Navigation>` component is designed to be nested within a `<Header>` component. Both should be styled within their respective `<style>` tags.
 
@@ -158,7 +179,7 @@ const currentPath = pathname.replace(/\/$/, '');
 
 import Header from '../components/Header.astro';
 import Navigation from '../components/Navigation.astro';
-import logo form './assets/logo.webp'
+import logo from './assets/logo.webp'
 ---
 
 <Header>
@@ -253,7 +274,7 @@ import CarouselOtherSlide from '../components/CarouselOtherSlide.astro';
 </CarouselOther>
 ```
 
-For more information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
+**Note:** See also how to connect components with Keystatic [Content components](https://keystatic.com/docs/content-components).
 
 <br>
 
@@ -293,6 +314,6 @@ import AccordionItem from '../components/AccordionItem.astro';
 </Accordion>
 ```
 
-For information about how to connect components with Keystatic check [Content components](https://keystatic.com/docs/content-components).
+**Note:** See also how to connect components with Keystatic [Content components](https://keystatic.com/docs/content-components).
 
 <br>
