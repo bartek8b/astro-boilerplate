@@ -42,16 +42,16 @@ For more information check [Defining build-time content collections](https://doc
 
 ```
 ├── src/
-│   ├── assets/             
-│   ├── components/         
+│   ├── assets/
+│   ├── components/
 │   │   ├── Accordion.astro
 │   │   ├── AccordionItem.astro
 │   │   ├── CarouselPics.astro
 │   │   ├── CarouselPicsSlide.astro
 │   │   ├── CarouselPics.astro
 │   │   ├── CarouselPicSlide.astro
-│   │   ├── Head.astro  
-│   │   ├── Header.astro        # Treści zarządzane przez Keystatic (Markdown)     
+│   │   ├── Head.astro
+│   │   ├── Header.astro        # Treści zarządzane przez Keystatic (Markdown)
 │   │   └── Navigation.astro
 │   ├── content/                # Treści zarządzane przez Keystatic (Markdown)
 │   ├── layouts/
