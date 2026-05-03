@@ -43,7 +43,7 @@
 │   ├── layouts/
 │   │   └── BaseLayout.astro
 │   ├── pages/
-│   │   └── [...slug].astro              # Dynamic route for rendering CMS pages
+│   │   └── [...slug].astro           # Dynamic route for rendering CMS pages
 │   ├── scripts/                      # Global JS logic, components helpers
 │   ├── styles/                       # Global CSS, Carousel items helpers
 │   └── content.config.ts             # Astro content layer
