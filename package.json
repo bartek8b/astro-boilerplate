@@ -18,7 +18,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.50",
-    "astro": "^5.4.2",
+    "astro": "^5.18.2",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "modern-normalize": "^3.0.1",
