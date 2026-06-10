@@ -9,6 +9,7 @@ export default defineConfig({
   // Change to target URL when implementing a real project
   site: 'https://site-name.domain/',
   integrations: [sitemap(), react(), keystatic(), mdx()],
+  output: 'hybrid',
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
