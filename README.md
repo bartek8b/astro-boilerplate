@@ -236,7 +236,7 @@ const colorSchemeBtn = document.querySelector('.theme-toggle-btn');
 
 ## 🎡 Carousel component
 
-There are 2 modes of carousel in this boilerplate: one for pictures (`src/components/CarouselPics.astro`) and one for trich content (`src/components/CarouselOther.astro`). Both act as containers and must be populated with their respective slide components: `CarouselPicSlide.astro` or `CarouselOtherSlide.astro`.
+There are 2 modes of carousel in this boilerplate: one for pictures (`src/components/CarouselPics.astro`) and one for rich content (`src/components/CarouselOther.astro`). Both act as containers and must be populated with their respective slide components: `CarouselPicSlide.astro` or `CarouselOtherSlide.astro`.
 
 Common styles are managed via `src/styles/carousels.css`. You can overwrite slide sizes locally using a `<style>` tag within the component itself or its parent.
 
