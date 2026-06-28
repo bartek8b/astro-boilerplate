@@ -9,3 +9,5 @@ updates:
         versions: ["^7.0.0"]
       - dependency-name: "@astrojs/node"
       versions: ["^11.0.0"]
+      - dependency-name: "@astrojs/react"
+      versions: ["^6.0.0"]
