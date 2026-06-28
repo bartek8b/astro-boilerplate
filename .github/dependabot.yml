@@ -7,3 +7,5 @@ updates:
     ignore:
       - dependency-name: "astro"
         versions: ["^7.0.0"]
+      - dependency-name: "@astrojs/node"
+      versions: ["^11.0.0"]
