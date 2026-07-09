@@ -4,13 +4,3 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-    # Blocking Astro 7 ecosystem until Keystatic update
-    ignore:
-      - dependency-name: "astro"
-        versions: ["^7.0.0"]
-      - dependency-name: "@astrojs/node"
-        versions: ["^11.0.0"]
-      - dependency-name: "@astrojs/react"
-        versions: ["^6.0.0"]
-      - dependency-name: "@astrojs/mdx"
-        versions: ["^7.0.0"]
