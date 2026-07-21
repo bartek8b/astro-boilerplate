@@ -27,7 +27,7 @@
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "prettier": "^3.9.5",
+    "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1"
   }
 }
